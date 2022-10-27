@@ -26,11 +26,11 @@ function changeFixHeader(scrollTop) {
 
     const $logoImg = document.querySelector('.inner-header h1 img');
     if (scrollTop > 200) {
-        $logoImg.setAttribute('src', 'img/logo2.png');
+        $logoImg.setAttribute('src', '/img/logo2.png');
         $('header').addClass('on');
         // document.querySelector('header').classList.add('on');
     } else {
-        $logoImg.setAttribute('src', 'img/logo.png');
+        $logoImg.setAttribute('src', '/img/logo.png');
         $('header').removeClass('on');
     }
 }
