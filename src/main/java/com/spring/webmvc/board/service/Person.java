@@ -6,7 +6,7 @@ import lombok.Setter;
 public class Person {
 
     String name;
-    final String ssn;
+    final String ssn;   // final을 걸면 밑에서 수정이 불가능하다
 
     public Person(String name, String ssn) {
         this.name = name;
@@ -15,6 +15,7 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+//        this.ssn = ssn;
     }
 
 
