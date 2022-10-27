@@ -24,3 +24,5 @@ public interface BoardRepository {
     // 게시글 수정
     boolean modify(Board board);  // 게시글 쓰는것과 동일하게 읽기, 쓰기 전부 가지고 있는 Board를 매개변수로 받는다
 }
+
+// Ctrl + Shift + T    -->   새로운 테스트 생성
