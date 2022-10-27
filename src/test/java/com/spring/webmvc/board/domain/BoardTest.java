@@ -8,10 +8,15 @@ class BoardTest {
 
     @Test
     void builderTest() {
-        Board.builder()
+        Board board = new Board.Builder()
                 .title("제목")
                 .boardNo(20L)
                 .content("dddd")
+                .writer("레레레레")
                 .build();
+
+
+
+
     }
 }
