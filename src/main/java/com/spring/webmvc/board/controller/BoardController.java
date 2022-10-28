@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -34,7 +35,6 @@ public class BoardController {
         return "board/list";
 
         /*
-
             TRACE - 잡다한 자잘한 로그
             DEBUG - 개발단계의 디버깅
             INFO - 정보
@@ -42,6 +42,28 @@ public class BoardController {
             ERROR - 심각한 에러     :: 밑으로 갈수록 중요한 로그이다
 
          */
+    }
+
+    // 게시물 상세 조회 요청 처리
+    @GetMapping("/content/{bno}")  // 뒤에 글번호가 붙어서 달라오게되는것.  글번호 : boardNo
+    public String content(@PathVariable("bno") Long boardNo, Model model) { // 모델에 담아주기 위해 선언
+
+        log.info("/board/content/{} GET!", boardNo);
+
+        // 박스에 담아서 담아주는데 그 박스가 모델이다
+                                                // Ctrl + Alt + n  : 자동으로 인라인 설정,     나올때는 Ctrl + Alt + v
+        model.addAttribute("b", service.getDetail(boardNo));   // 결과를 뷰한테 포워딩을 하면서 보낸다
+        return "board/detail";
 
     }
 }
+
+
+
+
+
+
+
+
+
+

@@ -84,7 +84,7 @@
 
         console.log('tr 클릭됨! - ', e.target);
 
-        let bn = e.target.parentElement.firstElementChild.textContent;
+        let bn = e.target.parentElement.firstElementChild.textContent;  // e.target의 부모의 첫번째 요소를 받아와서 요청을 보낸다. (location.href = '/board/content/' + bn; 이부분이 보내는 부분)
         console.log('글번호: ' + bn);
 
         location.href = '/board/content/' + bn;
