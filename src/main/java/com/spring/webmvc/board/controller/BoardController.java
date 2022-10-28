@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +26,7 @@ public class BoardController {
     // 게시물 목록 조회 요청
     // 예전 버전 : @RequestMapping(value = "/list", method = RequestMethod.GET)
     @GetMapping("/list")
-    public String list(Model model) throws IOException {
+    public String list(Model model) {
 
         int a = 10;
         List<Board> boardList = service.getList();
@@ -67,13 +68,19 @@ public class BoardController {
 
     // 게시물 등록 요청
     @PostMapping("/write")  // url이 같아도("/write") 로 현재 같음        @Get, @Post 가 다르므로 구분이 가능하다
-    public String write(Board board) { //Board 명이랑 table 명이 다르면 DTO를 하나 만들고 BoardDTO 이런식으로 부여
+    public String write(Board board, RedirectAttributes ra) { //Board 명이랑 table 명이 다르면 DTO를 하나 만들고 BoardDTO 이런식으로 부여
         log.info("/board/write Post!", board);
 
         boolean flag = service.insert(board);
+
+        ra.addAttribute("msg", "insert-success");
+        // 포워드와 redirect의 차이는 결과 적인 측면에서는 둘다 list.jsp를 연다는 것은 동일하지만
+        // 포워드는 BoardController가 list.jsp한테 위임하는 건데  요청 한 번 응답 한 번 뿐이다. request 객체 데이터는 한번의 응답과 요청을 수행하면 죽는다.  브라우저가 꺼지면 죽는다
+        // redirect는 두번의 요청까지는 msg가 살아있고 그 후에 죽게된다  Model 대신 RedirectAttributes 를 사용하는 이유
+
         return flag ? "redirect:/board/list" : "redirect:/";   // flag 가 실패시 redirect 성공시 왼쪽으로 이동
         // 성공시에 바로 "board/list"로 포워딩을 하게 되면 안된다.
         // 왜냐면 --->  단순이 지정한 페이지로 가는 것이기때문 (게시물 목록을 들고 가줘야 하는데 즉, List<Board> boardList = service.getList() 를 가져와야하는데
-        // 단순히 페이지만 가는 것이므로 재요청이 필요하다
+        // 단순히 페이지만 가는 것이므로 재요청이 필요하다.   재요청을 하는 것이 바로 redirect
     }
 }

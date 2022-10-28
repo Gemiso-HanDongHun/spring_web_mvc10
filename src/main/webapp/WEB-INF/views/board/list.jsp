@@ -56,9 +56,9 @@
                 <tr>
                     <td>${b.boardNo}</td>
                     <td>${b.writer}</td>
-                    <td title="${b.title}">${b.title}</td>
+                    <td title="${b.title}">${b.shortTitle}</td>
                     <td>0</td>
-                    <td>${b.regDate}</td>
+                    <td>${b.prettierDate}</td>
                 </tr>
             </c:forEach>
         </table>
@@ -67,7 +67,6 @@
             <a class="btn btn-outline-danger btn-lg" href="/board/write">글쓰기</a>
         </div>
     </div>
-
 
     <%@ include file="../include/footer.jspf" %>
 
@@ -89,6 +88,14 @@
 
         location.href = '/board/content/' + bn;
     });
+
+    // 게시물 등록 성공시 알림창 생성
+    const msg = '${msg}';
+    console.log('msg : ', msg);
+
+    if(msg === 'insert-success'){
+        alert('게시물 등록 성공');
+    }
 
 </script>
 

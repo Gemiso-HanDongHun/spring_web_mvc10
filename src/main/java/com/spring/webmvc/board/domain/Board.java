@@ -28,6 +28,10 @@ public class Board {
     private int viewCnt;
     private Date regDate;
 
+    // 커스텀 필드
+    private String shortTitle; // 커서를 올려놨을때 줄임 제목 보여주기
+    private String prettierDate; // 포멧팅한 날짜문자열
+    private boolean newArticle; // 신규게시물 여부    ---> 맞으면 true 틀리면 false
 
     private Board(Builder builder){
         this.boardNo = builder.boardNo;
