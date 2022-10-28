@@ -56,7 +56,14 @@
                 <tr>
                     <td>${b.boardNo}</td>
                     <td>${b.writer}</td>
-                    <td title="${b.title}">${b.shortTitle}</td>
+                    <td title="${b.title}">
+                            ${b.shortTitle}
+
+                        <c:if test ="${b.newArticle == true}">
+                            <span class="badge bg-danger">New</span>
+                        </c:if>
+
+                    </td>
                     <td>0</td>
                     <td>${b.prettierDate}</td>
                 </tr>
@@ -93,7 +100,7 @@
     const msg = '${msg}';
     console.log('msg : ', msg);
 
-    if(msg === 'insert-success'){
+    if (msg === 'insert-success') {
         alert('게시물 등록 성공');
     }
 

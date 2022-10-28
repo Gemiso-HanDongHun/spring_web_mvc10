@@ -22,14 +22,14 @@ public class BoardService {
     // 전체조회 중간처리
     public List<Board> getList() {
         List<Board> boardList = repository.findAll();
-        
+
         processBoardList(boardList);   // 리펙토링 하는 이유 --> 중간처리를 할때 다른 개발자가 처리하는 부분을 바로 확인할 수 있게 하기 위해
 
         return boardList;
     }
 
     private void processBoardList(List<Board> boardList) {
-        for (Board b : boardList) {
+        for (Board b : boardList) {   // 항샹된 for문  for(자료형 변수명 : 배열명)
 
             // 게시물 제목 줄임 처리
             subStringTitle(b);   // Ctrl + Alt + m   ----->   추출 해서 메서드로 정의
@@ -48,7 +48,7 @@ public class BoardService {
         long nowDate = System.currentTimeMillis(); // 현재 시간 시간(밀리초)
 
         long diff = nowDate - regDate;  // 작성 후 지난 시간(밀리초)
-        long limit = 10 * 60 * 1000; // 10분을 밀리초로 변환
+        long limit = 3 * 60 * 60 * 1000; // 10분을 밀리초로 변환
 
         if (diff <= limit) {
             b.setNewArticle(true);

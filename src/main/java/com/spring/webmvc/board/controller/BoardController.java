@@ -73,7 +73,7 @@ public class BoardController {
 
         boolean flag = service.insert(board);
 
-        ra.addAttribute("msg", "insert-success");
+        ra.addFlashAttribute("msg", "insert-success");
         // 포워드와 redirect의 차이는 결과 적인 측면에서는 둘다 list.jsp를 연다는 것은 동일하지만
         // 포워드는 BoardController가 list.jsp한테 위임하는 건데  요청 한 번 응답 한 번 뿐이다. request 객체 데이터는 한번의 응답과 요청을 수행하면 죽는다.  브라우저가 꺼지면 죽는다
         // redirect는 두번의 요청까지는 msg가 살아있고 그 후에 죽게된다  Model 대신 RedirectAttributes 를 사용하는 이유
