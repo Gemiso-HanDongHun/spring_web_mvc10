@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -51,19 +52,28 @@ public class BoardController {
         log.info("/board/content/{} GET!", boardNo);
 
         // 박스에 담아서 담아주는데 그 박스가 모델이다
-                                                // Ctrl + Alt + n  : 자동으로 인라인 설정,     나올때는 Ctrl + Alt + v
+        // Ctrl + Alt + n  : 자동으로 인라인 설정,     나올때는 Ctrl + Alt + v
         model.addAttribute("b", service.getDetail(boardNo));   // 결과를 뷰한테 포워딩을 하면서 보낸다
         return "board/detail";
+    }
 
+    // 게시물 쓰기 화면 요청 ( 조회 )
+    @GetMapping("/write")
+    public String write() {
+        log.info("/board/write Get!");
+        return "board/write";  // DB에 접근할 필요가 없으므로 바로 포워딩을 한다
+    }
+
+
+    // 게시물 등록 요청
+    @PostMapping("/write")  // url이 같아도("/write") 로 현재 같음        @Get, @Post 가 다르므로 구분이 가능하다
+    public String write(Board board) { //Board 명이랑 table 명이 다르면 DTO를 하나 만들고 BoardDTO 이런식으로 부여
+        log.info("/board/write Post!", board);
+
+        boolean flag = service.insert(board);
+        return flag ? "redirect:/board/list" : "redirect:/";   // flag 가 실패시 redirect 성공시 왼쪽으로 이동
+        // 성공시에 바로 "board/list"로 포워딩을 하게 되면 안된다.
+        // 왜냐면 --->  단순이 지정한 페이지로 가는 것이기때문 (게시물 목록을 들고 가줘야 하는데 즉, List<Board> boardList = service.getList() 를 가져와야하는데
+        // 단순히 페이지만 가는 것이므로 재요청이 필요하다
     }
 }
-
-
-
-
-
-
-
-
-
-

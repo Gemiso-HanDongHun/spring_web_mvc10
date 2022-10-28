@@ -18,6 +18,7 @@
     <select id="findAll" resultMap="boardMap">
         SELECT *
         FROM tbl_board
+        ORDER BY board_no DESC
     </select>
 
     <select id="findOne" resultMap="boardMap">
